@@ -1,11 +1,7 @@
 {
-  "type": "project",
+  "name": "darekx4/symfony-api-securities",
   "license": "MIT",
-  "minimum-stability": "stable",
-  "prefer-stable": true,
-  "name": "securities/analytics",
   "description": "REST based securities analytics calculator PoC",
-  "homepage": "https://www.linkedin.com/in/dariusz-tercjak/",
   "authors": [
     {
       "name": "Dariusz Tercjak",
