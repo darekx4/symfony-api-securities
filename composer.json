@@ -1,7 +1,7 @@
 {
   "name": "darekx4/symfony-api-securities",
   "license": "MIT",
-  "description": "REST based securities analytics calculator PoC",
+  "description": "Coding Challenge - Symfony API",
   "authors": [
     {
       "name": "Dariusz Tercjak",

@@ -1,5 +1,7 @@
-Coding Challenge - Symfony API. JSON based DSL securities analytics
+Coding Challenge - Symfony API 
 =====
+
+Symfony API JSON based DSL securities analytics
 
 The goal of the project is to build a small interpreter for a JSON 
 based DSL that performs some simple analytics on a data set. 
