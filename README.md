@@ -1,5 +1,6 @@
 Coding Challenge - Symfony API 
 =====
+[![License: MIT](https://img.shields.io/badge/License-MIT-limegreen.svg)](https://opensource.org/licenses/MIT)
 
 Symfony API JSON based DSL securities analytics
 
