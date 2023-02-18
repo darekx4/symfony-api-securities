@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
 
-use App\Constants\Generic;
-use App\Mappers\ExpressionsMapper;
-use App\Models\Analytics;
+use App\Constant\Generic;
+use App\Mapper\ExpressionsMapper;
+use App\Model\Analytics;
 use App\Service\AssetValuation;
 use App\Service\RequestProcessor;
 use App\Validator\SecurityJsonDSL;
@@ -34,6 +34,14 @@ class ApiSecuritiesController extends AbstractController
         $this->processor = $processor;
         $this->expressionsMapper = $expressionsMapper;
         $this->assetValuation = $assetValuation;
+    }
+
+    /**
+     * @Route("/securities/test", name="securities_analytics_test", methods={"GET"})
+     */
+    public function test(Request $request): JsonResponse
+    {
+        return new JsonResponse(['error' => false, 'status' => Generic::ASSET_HAS_BEEN_VALUED, 'valuation_result' => 'That was just test',], Response::HTTP_OK);
     }
 
     /**

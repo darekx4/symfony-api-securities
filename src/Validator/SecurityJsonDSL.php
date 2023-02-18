@@ -2,11 +2,11 @@
 
 namespace App\Validator;
 
-use App\Constants\Attributes;
-use App\Constants\Generic;
-use App\Constants\Operators;
-use App\Constants\Securities;
-use App\Exceptions\InvalidPayloadException;
+use App\Constant\Attributes;
+use App\Constant\Generic;
+use App\Constant\Operators;
+use App\Constant\Securities;
+use App\Exception\InvalidPayloadException;
 use JsonException;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;

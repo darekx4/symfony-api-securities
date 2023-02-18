@@ -1,10 +1,10 @@
 <?php
 namespace App\ExpressionCalculator;
 
-use App\Constants\Generic;
-use App\Constants\Operators;
-use App\Exceptions\DivisionByZeroErrorException;
-use App\Exceptions\NoMatchingOperationException;
+use App\Constant\Generic;
+use App\Constant\Operators;
+use App\Exception\DivisionByZeroErrorException;
+use App\Exception\NoMatchingOperationException;
 use App\ExpressionCalculator\Operations\{Add, Divide, Multiply, Subtract};
 
 final class ExpressionFactory

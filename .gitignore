@@ -25,3 +25,6 @@
 ###< symfony/web-server-bundle ###
 
 /.idea
+
+composer.lock
+symfony.lock

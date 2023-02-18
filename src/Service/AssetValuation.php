@@ -5,9 +5,9 @@ namespace App\Service;
 use App\Entity\Attribute;
 use App\Entity\Facts;
 use App\Entity\Security;
-use App\Exceptions\DivisionByZeroErrorException;
+use App\Exception\DivisionByZeroErrorException;
 use App\ExpressionCalculator\ExpressionFactory;
-use App\Models\Expression;
+use App\Model\Expression;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AssetValuation

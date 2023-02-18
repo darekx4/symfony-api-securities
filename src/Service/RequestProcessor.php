@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Constants\Generic;
+use App\Constant\Generic;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
