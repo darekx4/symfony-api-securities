@@ -1,6 +1,9 @@
 Coding Challenge - Symfony API 
 =====
 [![License: MIT](https://img.shields.io/badge/License-MIT-limegreen.svg)](https://opensource.org/licenses/MIT)
+[![Fee Calculation](https://github.com/darekx4/symfony-api-securities/actions/workflows/symfony.yml/badge.svg)](https://github.com/darekx4/symfony-api-securities/actions/workflows/symfony.yml)
+
+# Abstract
 
 Symfony API JSON based DSL securities analytics
 
@@ -8,8 +11,6 @@ The goal of the project is to build a small interpreter for a JSON
 based DSL that performs some simple analytics on a data set. 
 
 This should be exposed as a Symfony-based API that accepts the queries.
-
-Used Symfony 5, PHP 7.4 and phpunit tests
  
 ## The Data
 
@@ -100,4 +101,56 @@ operator and attribute names as arguments:
   },
   "security": "SHIPW"
 }
+```
+
+# Implementation
+
+## Requirements
+```
+>= PHP 8.2, mqsql or different database server
+```
+## Installation
+```
+1. Run composer install
+
+2. Inside the .env file place reference to your database eg.
+DATABASE_URL=mysql://your_username:your_password@127.0.0.1/your_database_name?serverVersion=8
+
+```
+
+## Populating data in database
+```
+Create database 
+php bin/console make:migration
+
+Create tables
+php bin/console doctrine:migrations:migrate
+
+Push data
+php bin/console doctrine:fixtures:load
+```
+![Alt Text](images/2.png)
+
+## Unit tests
+```
+composer test
+```
+
+## Testing using postman
+
+```
+Make sure php server is running eg.
+php -S localhost:8000 -t public/
+[Sat Feb 18 17:24:29 2023] PHP 8.2.3 Development Server (http://localhost:8000) started
+
+```
+Then simply either run simple test with GET - just to make sure requests are coming at all
+![Alt Text](images/1.png)
+
+Or use more complex POST payloads to different url
+![Alt Text](images/3.png)
+
+More example of possible payload can be found in integration tests, If you want torun them localy you need to run server and comment out the line
+```
+$this->markTestSkipped('Skipping the tests which require running server');
 ```
