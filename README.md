@@ -129,7 +129,7 @@ php bin/console doctrine:migrations:migrate
 Push data
 php bin/console doctrine:fixtures:load
 ```
-![Alt Text](images/2.png)
+![Alt Text](readme/images/2.png)
 
 ## Unit tests
 ```
@@ -145,10 +145,10 @@ php -S localhost:8000 -t public/
 
 ```
 Then simply either run simple test with GET - just to make sure requests are coming at all
-![Alt Text](images/1.png)
+![Alt Text](readme/images/1.png)
 
 Or use more complex POST payloads to different url
-![Alt Text](images/3.png)
+![Alt Text](readme/images/3.png)
 
 More example of possible payload can be found in integration tests, If you want torun them localy you need to run server and comment out the line
 ```
