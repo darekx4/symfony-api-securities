@@ -1,4 +1,4 @@
-Coding Challenge - Symfony API 
+Coding Challenge - Symfony API
 =====
 [![License: MIT](https://img.shields.io/badge/License-MIT-limegreen.svg)](https://opensource.org/licenses/MIT)
 [![Fee Calculation](https://github.com/darekx4/symfony-api-securities/actions/workflows/symfony.yml/badge.svg)](https://github.com/darekx4/symfony-api-securities/actions/workflows/symfony.yml)
@@ -7,18 +7,18 @@ Coding Challenge - Symfony API
 
 Symfony API JSON based DSL securities analytics
 
-The goal of the project is to build a small interpreter for a JSON 
-based DSL that performs some simple analytics on a data set. 
+The goal of the project is to build a small interpreter for a JSON
+based DSL that performs some simple analytics on a data set.
 
 This should be exposed as a Symfony-based API that accepts the queries.
- 
+
 ## The Data
 
 The data set comprises 3 small csv files, `securities.csv`,
- `attributes.csv` and `facts.csv`. There are 10 securities and 10 attributes, and for each 
- security and each attribute, there is one fact. I.e. there is a one-to-many relationship between
-  securities and facts, and attributes and facts.
-  
+`attributes.csv` and `facts.csv`. There are 10 securities and 10 attributes, and for each
+security and each attribute, there is one fact. I.e. there is a one-to-many relationship between
+securities and facts, and attributes and facts.
+
 ### Securities Schema
 
 | column | type    |
@@ -52,29 +52,28 @@ A query in our DSL has the basic format:
 ```
 
 The security property contains a single string, which is the symbol of a security the user wishes
- to evaluate an expression for.
+to evaluate an expression for.
 
-The expression field contains a single expression, which the user wishes to evaluate for the 
-chosen security. An expression contains an operator (the `fn` property), and the arguments to 
-that operator has other properties. The arguments to operators can either be the name of an 
+The expression field contains a single expression, which the user wishes to evaluate for the
+chosen security. An expression contains an operator (the `fn` property), and the arguments to
+that operator has other properties. The arguments to operators can either be the name of an
 attribute, a number, or another expression.
- 
-You only have to implement one operator, though it should be clear in your solution 
-how it might be possible to extend the interpreter to include additional operators. Please choose
- one of the following operators to implement:
- 
-| Operator  | Arguments| Behaviour
-|-----------|----------|-----------
-| +         | a, b     | Adds a and b
-| -         | a, b     | Subtracts b from a
-| *         | a, b     | Multiplies a and b
-| /         | a, b     | Divides a by b
 
+You only have to implement one operator, though it should be clear in your solution
+how it might be possible to extend the interpreter to include additional operators. Please choose
+one of the following operators to implement:
+
+| Operator | Arguments | Behaviour          |
+|----------|-----------|--------------------|
+| +        | a, b      | Adds a and b       |
+| -        | a, b      | Subtracts b from a |
+| *        | a, b      | Multiplies a and b |
+| /        | a, b      | Divides a by b     |
 
 Here are some example queries, demonstrating what each operator looks like and what the different
- parameters can be:
- 
- This one uses the `*` operator and makes use of one attribute name and an integer as its arguments: 
+parameters can be:
+
+This one uses the `*` operator and makes use of one attribute name and an integer as its arguments:
 ```
 {
   "expression": {"fn": "*", "a": "sales", "b": 2},
@@ -90,7 +89,7 @@ This one uses the `/` operator and makes uses two attribute names as arguments:
 }
 ```
 
-This one uses the `-` operator and the arguments are two expressions, which in turn use the `-` 
+This one uses the `-` operator and the arguments are two expressions, which in turn use the `-`
 operator and attribute names as arguments:
 ```
 {
@@ -144,13 +143,49 @@ php -S localhost:8000 -t public/
 [Sat Feb 18 17:24:29 2023] PHP 8.2.3 Development Server (http://localhost:8000) started
 
 ```
-Then simply either run simple test with GET - just to make sure requests are coming at all
+Use browser or REST client - GET request (e.g. Postman) to test your build
+```
+http://localhost:8000/api/securities/test
+
+You should see follwing response:
+{"error":false,"status":"Asset has been valued","valuation_result":"That was just test"}
+```
+
 ![Alt Text](readme/images/1.png)
 
-Or use more complex POST payloads to different url
+In order to use the interpreter push POST request using REST client (e.g. Postman) request with header: Content-Type application/json;
+
+```
+http://localhost:8000/api/securities/analytics
+
+Example of the payloads:
+
+{
+    "expression": {"fn": "*", "a": "sales", "b": 2},
+    "security": "BBIG"
+}
+
+---------------------------------------------------------------
+
+{
+    "expression": {"fn": "/", "a": "price", "b": "eps"},
+    "security": "HYDR"
+}
+---------------------------------------------------------------
+{
+  "expression": {
+    "fn": "-", 
+    "a": {"fn": "-", "a": "eps", "b": "shares"}, 
+    "b": {"fn": "-", "a": "assets", "b": "liabilities"}
+  },
+  "security": "SHIPW"
+}
+
+```
+
 ![Alt Text](readme/images/3.png)
 
-More example of possible payload can be found in integration tests, If you want torun them localy you need to run server and comment out the line
+More example of possible payload can be found in integration tests, If you want torun them locally you need to run server and comment out the line
 ```
 $this->markTestSkipped('Skipping the tests which require running server');
 ```
