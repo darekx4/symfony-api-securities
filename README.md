@@ -135,7 +135,7 @@ php bin/console doctrine:fixtures:load
 composer test
 ```
 
-## Testing using postman
+## Testing the build
 
 ```
 Make sure php server is running eg.
@@ -147,13 +147,15 @@ Use browser or REST client - GET request (e.g. Postman) to test your build
 ```
 http://localhost:8000/api/securities/test
 
-You should see follwing response:
+You should see following response:
 {"error":false,"status":"Asset has been valued","valuation_result":"That was just test"}
 ```
 
 ![Alt Text](readme/images/1.png)
 
-In order to use the interpreter push POST request using REST client (e.g. Postman) request with header: Content-Type application/json;
+## Using the interpreter
+
+In order to use the interpreter push POST request using REST client (e.g. Postman)
 
 ```
 http://localhost:8000/api/securities/analytics
@@ -185,7 +187,45 @@ Examples of the payloads:
 
 ![Alt Text](readme/images/3.png)
 
-More examples of possible payload can be found in integration tests, If you want torun them locally you need to run server and comment out the line
+More examples of possible payloads can be found in integration tests, If you want torun them locally you need to run server and comment out the line
 ```
 $this->markTestSkipped('Skipping the tests which require running server');
+```
+
+## How interpreter calculates valuations?
+
+Let's say we want to value how much would be to multiply security AEHL by 2 using sales value
+
+Table security holds following data:
+
+![Alt Text](readme/images/6.png)
+
+Table attribute contains all possible attributes
+
+![Alt Text](readme/images/4.png)
+
+Table facts contains relations between securities, attributes and values
+
+![Alt Text](readme/images/5.png)
+
+
+Therefore, in order to calculate AEHL * 2 using sales value
+
+we use payload
+```
+{
+  "expression": {"fn": "*", "a": "sales", "b": 2},
+  "security": "AEHL"
+}
+
+We are getting
+
+{
+    "error": false,
+    "status": "Asset has been valued",
+    "valuation_result": 8
+}
+
+Table facts row with id 4 stores value for security id 1 (AEHL) with attribute id 4 (sales) and value 4 
+
 ```
