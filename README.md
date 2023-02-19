@@ -158,7 +158,7 @@ In order to use the interpreter push POST request using REST client (e.g. Postma
 ```
 http://localhost:8000/api/securities/analytics
 
-Example of the payloads:
+Examples of the payloads:
 
 {
     "expression": {"fn": "*", "a": "sales", "b": 2},
@@ -185,7 +185,7 @@ Example of the payloads:
 
 ![Alt Text](readme/images/3.png)
 
-More example of possible payload can be found in integration tests, If you want torun them locally you need to run server and comment out the line
+More examples of possible payload can be found in integration tests, If you want torun them locally you need to run server and comment out the line
 ```
 $this->markTestSkipped('Skipping the tests which require running server');
 ```
