@@ -9,33 +9,43 @@ class ExpressionsMapper
     public function map($analyticsRequest): Expression
     {
         $rawExpression = $analyticsRequest->getExpression();
-        $parentExpression = new Expression();
-        $parentExpression->setFn($rawExpression['fn']);
+        $expression = new Expression();
+        $expression->setFn($rawExpression['fn']);
 
         if (is_array($rawExpression['a'])) {
-            $rawExpressionA = $rawExpression['a'];
-            $nestedExpression = new Expression();
-            $nestedExpression->setFn($rawExpressionA['fn']);
-            $nestedExpression->setA($rawExpressionA['a']);
-            $nestedExpression->setB($rawExpressionA['b']);
-
-            $parentExpression->setA($nestedExpression);
+            $expression->setA($this->createExpression($rawExpression['a']));
         } else {
-            $parentExpression->setA($rawExpression['a']);
+            $expression->setA($rawExpression['a']);
         }
 
         if (is_array($rawExpression['b'])) {
-            $rawExpressionB = $rawExpression['b'];
-            $nestedExpression = new Expression();
-            $nestedExpression->setFn($rawExpressionB['fn']);
-            $nestedExpression->setA($rawExpressionB['a']);
-            $nestedExpression->setB($rawExpressionB['b']);
-
-            $parentExpression->setB($nestedExpression);
+            $expression->setB($this->createExpression($rawExpression['b']));
         } else {
-            $parentExpression->setB($rawExpression['b']);
+            $expression->setB($rawExpression['b']);
         }
 
-        return $parentExpression;
+        return $expression;
+    }
+
+    private function createExpression(array $rawExpression): Expression
+    {
+        $expression = new Expression();
+        $expression->setFn($rawExpression['fn']);
+
+        if (is_array($rawExpression['a'])) {
+            $nestedExpressionA = $this->createExpression($rawExpression['a']);
+            $expression->setA($nestedExpressionA);
+        } else {
+            $expression->setA($rawExpression['a']);
+        }
+
+        if (is_array($rawExpression['b'])) {
+            $nestedExpressionB = $this->createExpression($rawExpression['b']);
+            $expression->setB($nestedExpressionB);
+        } else {
+            $expression->setB($rawExpression['b']);
+        }
+
+        return $expression;
     }
 }
